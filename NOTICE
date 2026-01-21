@@ -1,0 +1,19 @@
+FlowMark-core
+Copyright 2026 FlowMark Contributors
+
+This product includes software developed at FlowMark.
+
+## Project Philosophy
+
+FlowMark is built on the belief that the future of software engineering lies in 
+effective human-AI collaboration. Traditional checklists are static and linear, 
+but modern engineering workflows are dynamic and context-dependent.
+
+FlowMark bridges this gap by providing:
+
+1. **Completeness**: Ensuring all necessary steps are considered and tracked
+2. **Conditional Flow**: Supporting branching logic based on context and conditions
+3. **Token-Aware Execution**: Optimizing for AI consumption and generation efficiency
+
+The framework aims to make engineering processes more systematic, reproducible, 
+and accessible to both human engineers and AI assistants working together.
