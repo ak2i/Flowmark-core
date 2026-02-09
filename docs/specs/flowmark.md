@@ -1,6 +1,6 @@
 # FlowMark Specification (Latest)
 
-Version: 0.1
+Version: 0.1.1
 
 FlowMark is a Markdown format that embeds YAML blocks for checklist-style coverage documents.
 
@@ -28,6 +28,23 @@ Recommended keys:
 - `status`: `draft` | `active` | `archived`
 - `created_at`: `YYYY-MM-DD`
 - `inputs`: list of `{ type, ref }`
+- `contract` (optional, v0.1.1)
+
+### Coverage Contract (v0.1.1)
+
+Contract is optional and **not validated** in v0.1.x. It exists for authoring and review.
+
+```yaml
+contract:
+  enumeration_target: string
+  required_groups: [string, ...]
+  min_total_items: number
+  min_items_by_group:
+    GroupName: number
+  anti_omission_rules: [string, ...]
+  exception_policy:
+    <key>: string
+```
 
 ## Section Block
 
@@ -66,13 +83,15 @@ Registry is used for coverage validation to ensure no items are missing.
 - Use one item per `flowmark-item` block
 - When registry is present, it should list every item ID
 
-## Minimal Example
+## Minimal Example (v0.1.1)
 
 ```markdown
 ```yaml flowmark
 id: fm-example
 title: Example
-version: "0.1"
+version: "0.1.1"
+contract:
+  enumeration_target: "Example scope"
 ```
 
 ### Item

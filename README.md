@@ -1,6 +1,6 @@
 # FlowMark-core
 
-Core CLI for FlowMark v0.1.
+Core CLI for FlowMark v0.1.1.
 
 ## Install (npm)
 
@@ -37,13 +37,9 @@ cat path/to/file.md | docker run --rm -i -v "$(pwd)":/work -w /work ghcr.io/cent
 ## Test Samples (MVP)
 
 ```bash
-node bin/flowmark.js validate docs/dev/v0.1/samples/minimal.md
-node bin/flowmark.js validate docs/dev/v0.1/samples/invalid-duplicate-header.md
-node bin/flowmark.js validate docs/dev/v0.1/samples/invalid-no-item.md
-node bin/flowmark.js validate docs/dev/v0.1/samples/invalid-status.md
-node bin/flowmark.js validate docs/dev/v0.1/samples/invalid-coverage.md
-node bin/flowmark.js validate docs/dev/v0.1/samples/invalid-yaml.md
-node bin/flowmark.js validate docs/dev/v0.1/samples/lenient-unexpected.md
+node bin/flowmark.js validate docs/dev/v0.1.1/samples/minimal.md
+node bin/flowmark.js validate docs/dev/v0.1.1/samples/spec-conformant.md
+node bin/flowmark.js validate docs/dev/v0.1.1/samples/ai-template.md
 ```
 
 Note: If `E_YAML_PARSE` occurs, derived errors/warnings (e.g. `E_ITEM_NONE`, `W_REGISTRY_MISSING`) are suppressed.
@@ -66,7 +62,7 @@ Unknown keys are allowed but produce `W_UNKNOWN_KEYS` warnings.
 
 ```bash
 npm pack
-tar -tf flowmark-core-cli-0.1.0.tgz
+tar -tf flowmark-core-cli-0.1.1.tgz
 ```
 
 Check that `bin/`, `src/`, `README.md`, and `LICENSE` are included.

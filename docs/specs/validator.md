@@ -1,6 +1,6 @@
 # FlowMark Validator Specification (Latest)
 
-Version: 0.1
+Version: 0.1.1
 
 This document defines parser and validator behavior for FlowMark tooling.
 
@@ -22,9 +22,16 @@ This document defines parser and validator behavior for FlowMark tooling.
 - Registry: 0 or 1
 - Sections: any count
 
+## Header Contract (v0.1.1)
+
+- Header MAY include `contract: object`
+- Contract MUST NOT affect validation outcomes
+- Unknown keys inside `contract` MUST be ignored
+
 ## Validation Rules (MUST)
 
 - Header exists and is unique
+- Header has required keys: `id`, `title`, `version` (non-empty strings)
 - Item exists (at least 1)
 - Item IDs are globally unique
 - Item status is one of: `todo`, `done`, `skipped`, `blocked`
@@ -35,9 +42,9 @@ This document defines parser and validator behavior for FlowMark tooling.
 - Registry missing produces a warning
 - Unexpected items produce warning in lenient, error in strict
 - Duplicate section IDs produce a warning
-- Unknown keys produce a warning
+- Unknown keys produce a warning (excluding keys under `contract`)
 
-## Error and Warning Codes (v0.1)
+## Error and Warning Codes (v0.1.1)
 
 Errors:
 
