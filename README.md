@@ -27,11 +27,11 @@ flowmark lint path/to/file.md
 
 ## Docker
 
-Image: `ghcr.io/centimani/flowmark-core-cli`
+Image: `ghcr.io/centimanidevteam/flowmark-core-cli`
 
 ```bash
-docker run --rm -v "$(pwd)":/work -w /work ghcr.io/centimani/flowmark-core-cli validate path/to/file.md
-cat path/to/file.md | docker run --rm -i -v "$(pwd)":/work -w /work ghcr.io/centimani/flowmark-core-cli validate --stdin
+docker run --rm -v "$(pwd)":/work -w /work ghcr.io/centimanidevteam/flowmark-core-cli validate path/to/file.md
+cat path/to/file.md | docker run --rm -i -v "$(pwd)":/work -w /work ghcr.io/centimanidevteam/flowmark-core-cli validate --stdin
 ```
 
 ## Test Samples (MVP)

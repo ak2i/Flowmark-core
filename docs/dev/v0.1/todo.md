@@ -10,7 +10,7 @@
 - [x] 既存のリポジトリ構成と公開方法を確認する（CLI優先、npmパッケージで公開）
 - [x] npm パッケージ名を決定する（`@flowmark/core-cli`）
 - [x] CLI バイナリ名を決定する（`flowmark`）
-- [x] Docker イメージ名を決定する（`ghcr.io/centimani/flowmark-core-cli`）
+- [x] Docker イメージ名を決定する（`ghcr.io/centimanidevteam/flowmark-core-cli`）
 - [x] 仕様の“normative”項目と“recommended”項目を区分したチェックリストを作成する
 - [x] 初期のディレクトリ構成（`src/cli`, `src/parser`, `src/validator` など）を決定する
 
