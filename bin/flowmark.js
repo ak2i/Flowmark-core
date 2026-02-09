@@ -12,6 +12,7 @@ Usage:
   flowmark validate <file>
   flowmark parse <file>
   flowmark lint <file>
+  flowmark describe <topic> [--lang <lang>] [--format <format>]
   cat file.md | flowmark validate
 
 Options:
@@ -35,12 +36,16 @@ function parseArgs(argv) {
     mode: 'lenient',
     stdin: false,
     help: false,
-    version: false
+    version: false,
+    lang: 'en',
+    format: 'md'
   };
   let command = null;
   let file = null;
+  let topic = null;
 
-  for (const arg of argv) {
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
     if (arg === '--help' || arg === '-h') {
       opts.help = true;
     } else if (arg === '--version') {
@@ -51,8 +56,14 @@ function parseArgs(argv) {
       opts.mode = 'lenient';
     } else if (arg === '--stdin') {
       opts.stdin = true;
+    } else if (arg === '--lang') {
+      opts.lang = argv[++i] || opts.lang;
+    } else if (arg === '--format') {
+      opts.format = argv[++i] || opts.format;
     } else if (!command) {
       command = arg;
+    } else if (command === 'describe' && !topic) {
+      topic = arg;
     } else if (!file) {
       file = arg;
     } else {
@@ -60,7 +71,7 @@ function parseArgs(argv) {
     }
   }
 
-  return { command, file, opts };
+  return { command, file, topic, opts };
 }
 
 function readInput({ file, stdin }) {
@@ -77,7 +88,7 @@ function readInput({ file, stdin }) {
 }
 
 function run() {
-  const { command, file, opts } = parseArgs(process.argv.slice(2));
+  const { command, file, topic, opts } = parseArgs(process.argv.slice(2));
 
   if (opts.version) {
     process.stdout.write(readVersion() + '\n');
@@ -90,9 +101,42 @@ function run() {
   }
 
   if (command !== 'validate') {
-    if (command !== 'parse' && command !== 'lint') {
+    if (command !== 'parse' && command !== 'lint' && command !== 'describe') {
       process.stderr.write(`Unknown command: ${command}\n`);
       printHelp();
+      return process.exit(2);
+    }
+  }
+
+  if (command === 'describe') {
+    if (!topic) {
+      process.stderr.write('Missing topic for describe\n');
+      return process.exit(2);
+    }
+    if (opts.format !== 'md') {
+      process.stderr.write(`Unsupported format: ${opts.format}\n`);
+      return process.exit(2);
+    }
+    if (opts.lang !== 'en') {
+      process.stderr.write(`Unsupported language: ${opts.lang}\n`);
+      return process.exit(2);
+    }
+    let relPath = null;
+    if (topic === 'ai') {
+      relPath = 'docs/guides/flowmark-ai-authoring-guide.en.md';
+    } else if (topic === 'ai-source') {
+      relPath = 'docs/guides/flowmark-ai-authoring-guide.en.ideamark.md';
+    } else {
+      process.stderr.write(`Unsupported topic: ${topic}\n`);
+      return process.exit(2);
+    }
+    const absPath = path.resolve(__dirname, '..', relPath);
+    try {
+      const content = fs.readFileSync(absPath, 'utf8');
+      process.stdout.write(content);
+      return process.exit(0);
+    } catch (err) {
+      process.stderr.write(String(err.message || err) + '\n');
       return process.exit(2);
     }
   }

@@ -1,6 +1,6 @@
 # FlowMark Validator Specification (Latest)
 
-Version: 0.1.4
+Version: 0.1.5
 
 This document defines parser and validator behavior for FlowMark tooling.
 
@@ -50,7 +50,7 @@ This document defines parser and validator behavior for FlowMark tooling.
 - Duplicate section IDs produce a warning
 - Unknown keys produce a warning (excluding keys under `contract`)
 
-## Error and Warning Codes (v0.1.4)
+## Error and Warning Codes (v0.1.5)
 
 Errors:
 

@@ -1,6 +1,6 @@
 {
   "name": "@flowmark/core-cli",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "FlowMark core CLI",
   "private": false,
   "keywords": [
@@ -24,6 +24,7 @@
   "files": [
     "bin/",
     "src/",
+    "docs/guides/",
     "README.md",
     "LICENSE"
   ],

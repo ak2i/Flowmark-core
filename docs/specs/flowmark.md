@@ -1,6 +1,6 @@
 # FlowMark Specification (Latest)
 
-Version: 0.1.4
+Version: 0.1.5
 
 FlowMark is a Markdown format that embeds YAML blocks for checklist-style coverage documents.
 
@@ -44,6 +44,15 @@ Non-normative guidance:
 - Documents SHOULD list input references (e.g., `inputs`, `refs`).
 - Items MAY include `evidence` (informational only).
 - Provenance SHOULD be stored in aiwf sessions; FlowMark remains execution-agnostic.
+
+## AI Authoring Guide via CLI (v0.1.5)
+
+FlowMark CLI provides a stable, versioned authoring guide:
+
+- `flowmark describe ai` (prompt-friendly distribution)
+- `flowmark describe ai-source` (canonical IdeaMark source)
+
+Both guides are stored under `docs/guides/` and are version-controlled.
 
 ## Header Block
 
@@ -114,13 +123,13 @@ Registry is used for coverage validation to ensure no items are missing.
 - Use one item per `flowmark-item` block
 - When registry is present, it should list every item ID
 
-## Minimal Example (v0.1.4)
+## Minimal Example (v0.1.5)
 
 ```markdown
 ```yaml flowmark
 id: fm-example
 title: Example
-version: "0.1.4"
+version: "0.1.5"
 contract:
   enumeration_target: "Example scope"
 inputs:

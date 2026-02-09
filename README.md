@@ -1,6 +1,6 @@
 # FlowMark-core
 
-Core CLI for FlowMark v0.1.4.
+Core CLI for FlowMark v0.1.5.
 
 ## Install (npm)
 
@@ -15,6 +15,9 @@ flowmark validate path/to/file.md
 cat path/to/file.md | flowmark validate
 flowmark parse path/to/file.md
 flowmark lint path/to/file.md
+flowmark describe ai
+flowmark describe ai-source
+flowmark describe ai --lang en --format md
 ```
 
 ## Options
@@ -62,7 +65,7 @@ Unknown keys are allowed but produce `W_UNKNOWN_KEYS` warnings.
 
 ```bash
 npm pack
-tar -tf flowmark-core-cli-0.1.4.tgz
+tar -tf flowmark-core-cli-0.1.5.tgz
 ```
 
 Check that `bin/`, `src/`, `README.md`, and `LICENSE` are included.

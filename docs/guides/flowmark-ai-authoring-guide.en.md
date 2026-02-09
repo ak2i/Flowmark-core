@@ -1,58 +1,67 @@
-# FlowMark AI Authoring Guide (v0.1.5)
+# FlowMark AI Authoring Guide (EN)
 
-_Last updated: 2026-02-09_
+This guide is designed to be pasted into LLM prompts. It summarizes how to author FlowMark documents without omitting items.
 
-This guide explains **how an AI system should generate valid FlowMark documents**
-while preserving omission-detection through Coverage Contracts.
+## Purpose
 
----
+FlowMark is a coverage document format. Its goal is **not** to prevent omission, but to make omissions **detectable**.
 
-## Key Principles
+## Output Format (Hard Rules)
 
-- FlowMark detects omissions; it does not prevent them
-- Coverage Contracts define expected completeness
-- Enumeration must never be silently reduced
+FlowMark documents are Markdown with fenced YAML blocks. Only these YAML blocks are parsed:
 
----
+- `yaml flowmark` (header, exactly once)
+- `yaml flowmark-section` (optional)
+- `yaml flowmark-item` (repeatable, required)
+- `yaml flowmark-registry` (optional, recommended)
 
-## Mandatory Rule
+Everything outside YAML is free text and ignored by tools.
 
-**If a Coverage Contract exists, you MUST satisfy it or explicitly explain why not.**
+## Coverage Contract (Recommended)
 
----
-
-## Coverage Contract Example
+Use `contract` in the header to declare expectations. Contract is **not validated** in v0.1.x but helps humans and AIs review omissions.
 
 ```yaml
-coverage_contract:
-  enumeration_target: "deployment requirements"
-  minimum_expected_items: 8
-  required_groups:
-    - build
-    - release
-    - rollback
+contract:
+  enumeration_target: "..."
+  required_groups: ["..."]
+  min_total_items: 5
+  min_items_by_group:
+    GroupA: 2
+  anti_omission_rules: ["..."]
+  exception_policy:
+    note: "..."
 ```
 
----
+## Registry (Required for Coverage)
 
-## Checklist Item Example
+- Decide the full list of item IDs first
+- Write `flowmark-registry` with `expected_items`
+- Ensure **every** item ID appears as a `flowmark-item`
+
+## Item Rules
+
+Each checklist requirement should be:
+
+1. A short Markdown heading
+2. Immediately followed by **one** `flowmark-item` block
+
+Example:
 
 ```yaml
-- id: DEPLOY-001
-  description: Deployment procedure is documented
-  status: pending
+```yaml flowmark-item
+id: ex-001
+status: todo
+```
 ```
 
----
+## Validation Checklist
 
-## Prohibited Content
+Before finishing:
 
-- Execution metadata
-- aiwf session identifiers
-- Model names or timestamps
+- Exactly one header
+- At least one item
+- All item IDs are unique
+- Status is one of: `todo`, `done`, `skipped`, `blocked`
+- Registry includes all item IDs
 
----
-
-This document is intended to be used directly as an AI system prompt.
-
----
