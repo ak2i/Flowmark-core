@@ -7,6 +7,7 @@ RUN npm install --omit=dev
 
 COPY bin ./bin
 COPY src ./src
+COPY docs/guides ./docs/guides
 
 WORKDIR /work
 
