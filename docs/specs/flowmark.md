@@ -1,6 +1,6 @@
 # FlowMark Specification (Latest)
 
-Version: 0.1.1
+Version: 0.1.2
 
 FlowMark is a Markdown format that embeds YAML blocks for checklist-style coverage documents.
 
@@ -14,6 +14,12 @@ Recognized fenced YAML blocks use triple backticks and exact info strings:
 - `yaml flowmark-registry` (registry, optional, 0 or 1)
 
 All other Markdown and code blocks are ignored by tools.
+
+## Relationship to aiwf (v0.1.2)
+
+- FlowMark documents MAY be generated, reviewed, and validated via aiwf
+- FlowMark does NOT require aiwf to be valid
+- aiwf provides repeatability, logging, and automation
 
 ## Header Block
 
@@ -83,13 +89,13 @@ Registry is used for coverage validation to ensure no items are missing.
 - Use one item per `flowmark-item` block
 - When registry is present, it should list every item ID
 
-## Minimal Example (v0.1.1)
+## Minimal Example (v0.1.2)
 
 ```markdown
 ```yaml flowmark
 id: fm-example
 title: Example
-version: "0.1.1"
+version: "0.1.2"
 contract:
   enumeration_target: "Example scope"
 ```
