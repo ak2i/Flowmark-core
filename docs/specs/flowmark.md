@@ -1,6 +1,6 @@
 # FlowMark Specification (Latest)
 
-Version: 0.1.3
+Version: 0.1.4
 
 FlowMark is a Markdown format that embeds YAML blocks for checklist-style coverage documents.
 
@@ -36,6 +36,14 @@ Normative guidance:
 
 When instructing AI systems, the **spec stack MUST be made explicit**.
 FlowMark documents themselves do **not** contain spec stack information.
+
+## References, Evidence, Provenance (v0.1.4)
+
+Non-normative guidance:
+
+- Documents SHOULD list input references (e.g., `inputs`, `refs`).
+- Items MAY include `evidence` (informational only).
+- Provenance SHOULD be stored in aiwf sessions; FlowMark remains execution-agnostic.
 
 ## Header Block
 
@@ -90,6 +98,7 @@ Optional keys:
 
 - `refs`: list of strings
 - `batch`: string
+- `evidence`: list or string (informational)
 
 ## Registry Block
 
@@ -105,21 +114,26 @@ Registry is used for coverage validation to ensure no items are missing.
 - Use one item per `flowmark-item` block
 - When registry is present, it should list every item ID
 
-## Minimal Example (v0.1.3)
+## Minimal Example (v0.1.4)
 
 ```markdown
 ```yaml flowmark
 id: fm-example
 title: Example
-version: "0.1.3"
+version: "0.1.4"
 contract:
   enumeration_target: "Example scope"
+inputs:
+  - type: repo
+    ref: "/path/to/repo"
 ```
 
 ### Item
 ```yaml flowmark-item
 id: ex-001
 status: todo
+refs:
+  - doc://spec
 ```
 
 ```yaml flowmark-registry

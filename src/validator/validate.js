@@ -3,7 +3,7 @@ const ALLOWED_STATUS = new Set(['todo', 'done', 'skipped', 'blocked']);
 const ALLOWED_KEYS = {
   header: new Set(['id', 'title', 'version', 'status', 'created_at', 'inputs', 'contract']),
   section: new Set(['id', 'scope', 'notes']),
-  item: new Set(['id', 'status', 'refs', 'batch']),
+  item: new Set(['id', 'status', 'refs', 'batch', 'evidence']),
   registry: new Set(['expected_items'])
 };
 
