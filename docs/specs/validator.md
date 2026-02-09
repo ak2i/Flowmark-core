@@ -1,6 +1,6 @@
 # FlowMark Validator Specification (Latest)
 
-Version: 0.1.2
+Version: 0.1.3
 
 This document defines parser and validator behavior for FlowMark tooling.
 
@@ -15,11 +15,11 @@ This document defines parser and validator behavior for FlowMark tooling.
 - Parse YAML 1.2
 - Ignore all other Markdown and code blocks
 
-## Relationship to aiwf (v0.1.2)
+## Relationship to aiwf (v0.1.3)
 
-- Validator MAY be invoked via aiwf CLI
-- Validator MUST remain usable as a standalone tool
-- Session logging is out of scope for the validator
+- Validators MAY be invoked via aiwf.
+- Validators MUST remain usable as standalone tools.
+- aiwf is responsible for execution logging and session management.
 
 ## Cardinality Rules
 
@@ -50,7 +50,7 @@ This document defines parser and validator behavior for FlowMark tooling.
 - Duplicate section IDs produce a warning
 - Unknown keys produce a warning (excluding keys under `contract`)
 
-## Error and Warning Codes (v0.1.2)
+## Error and Warning Codes (v0.1.3)
 
 Errors:
 
