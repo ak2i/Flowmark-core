@@ -1,20 +1,18 @@
-# FlowMark v0.1.3 — Validator/Parser Spec (Markdown + YAML)
+# FlowMark v0.1.3 — Validator/Parser Spec (Revised)
 
 **Version:** 0.1.3  
-**Last updated:** 2026-02-08
+**Last updated:** 2026-02-09
 
-This version adds guidance on spec versioning.
-Validation rules remain unchanged.
-
----
-
-## X. Spec versioning note
-
-Validator implementations SHOULD be developed by applying
-FlowMark specs in ascending version order (spec stack).
-
-Standalone validators MAY simply conform to the latest v0.1.x behavior.
+This revision clarifies the validator's relationship to aiwf.
 
 ---
 
-No normative changes from v0.1.2.
+## X. Relationship to aiwf
+
+- Validators MAY be invoked via aiwf.
+- Validators MUST remain usable as standalone tools.
+- aiwf is responsible for execution logging and session management.
+
+No validation rules are changed.
+
+---
