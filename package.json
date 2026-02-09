@@ -1,0 +1,36 @@
+{
+  "name": "@flowmark/core-cli",
+  "version": "0.1.0",
+  "description": "FlowMark core CLI",
+  "private": false,
+  "keywords": [
+    "flowmark",
+    "cli",
+    "validator"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/centimani/flowmark-core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/centimani/flowmark-core/issues"
+  },
+  "homepage": "https://github.com/centimani/flowmark-core#readme",
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "flowmark": "bin/flowmark.js"
+  },
+  "dependencies": {
+    "yaml": "^2.4.5"
+  }
+}
