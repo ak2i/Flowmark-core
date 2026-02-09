@@ -9,5 +9,5 @@ This directory contains the latest, cumulative specifications for FlowMark.
 
 ## Status
 
-- Current spec version: v0.1.3
+- Current spec version: v0.1.4
 - These documents represent the latest stable rules for tooling and authoring.
