@@ -13,6 +13,7 @@ Usage:
   flowmark parse <file>
   flowmark lint <file>
   flowmark describe <topic> [--lang <lang>] [--format <format>]
+  flowmark params <topic> [--lang <lang>] [--format <format>]
   cat file.md | flowmark validate
 
 Options:
@@ -62,7 +63,7 @@ function parseArgs(argv) {
       opts.format = argv[++i] || opts.format;
     } else if (!command) {
       command = arg;
-    } else if (command === 'describe' && !topic) {
+    } else if ((command === 'describe' || command === 'params') && !topic) {
       topic = arg;
     } else if (!file) {
       file = arg;
@@ -101,16 +102,16 @@ function run() {
   }
 
   if (command !== 'validate') {
-    if (command !== 'parse' && command !== 'lint' && command !== 'describe') {
+    if (command !== 'parse' && command !== 'lint' && command !== 'describe' && command !== 'params') {
       process.stderr.write(`Unknown command: ${command}\n`);
       printHelp();
       return process.exit(2);
     }
   }
 
-  if (command === 'describe') {
+  if (command === 'describe' || command === 'params') {
     if (!topic) {
-      process.stderr.write('Missing topic for describe\n');
+      process.stderr.write(`Missing topic for ${command}\n`);
       return process.exit(2);
     }
     if (opts.format !== 'md') {
@@ -122,10 +123,16 @@ function run() {
       return process.exit(2);
     }
     let relPath = null;
-    if (topic === 'ai') {
-      relPath = 'docs/guides/flowmark-ai-authoring-guide.en.md';
-    } else if (topic === 'ai-source') {
-      relPath = 'docs/guides/flowmark-ai-authoring-guide.en.ideamark.md';
+    if (command === 'describe') {
+      if (topic === 'ai') {
+        relPath = 'docs/guides/flowmark-ai-authoring-guide.en.md';
+      } else if (topic === 'ai-source') {
+        relPath = 'docs/guides/flowmark-ai-authoring-guide.en.ideamark.md';
+      }
+    } else if (command === 'params') {
+      if (topic === 'normalize') {
+        relPath = 'docs/guides/flowmark-params-normalize.en.md';
+      }
     } else {
       process.stderr.write(`Unsupported topic: ${topic}\n`);
       return process.exit(2);

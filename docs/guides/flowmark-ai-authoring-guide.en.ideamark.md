@@ -4,7 +4,7 @@ doc_id: "flowmark.ai.authoring.guide.en"
 doc_type: "guide"
 status: "draft"
 created_at: "2026-02-09"
-updated_at: "2026-02-09"
+updated_at: "2026-02-10"
 lang: "en-US"
 ```
 
@@ -30,6 +30,8 @@ Registry MUST list all item IDs. Any missing ID is a validation error.
 
 - One item per `flowmark-item`
 - Stable IDs
+- Include `description` in each item (alias `requirement` allowed)
+- Use `group` to align with Coverage Contract `required_groups` when applicable
 - Use `refs` for inputs and `evidence` for optional proof
 
 ## 5. Non-goals

@@ -1,6 +1,6 @@
 # FlowMark Specification (Latest)
 
-Version: 0.1.5
+Version: 0.1.6
 
 FlowMark is a Markdown format that embeds YAML blocks for checklist-style coverage documents.
 
@@ -54,6 +54,15 @@ FlowMark CLI provides a stable, versioned authoring guide:
 
 Both guides are stored under `docs/guides/` and are version-controlled.
 
+## Normalization Params via CLI (v0.1.6)
+
+FlowMark CLI provides a normalization prompt material:
+
+- `flowmark params normalize --lang en --format md`
+
+This document defines mechanical fixes only (no semantic changes) and is intended
+to be used in a generate → validate → fix-loop.
+
 ## Header Block
 
 Required keys:
@@ -64,6 +73,7 @@ Required keys:
 
 Recommended keys:
 
+- `doc_type`: string (e.g., `checklist`)
 - `status`: `draft` | `active` | `archived`
 - `created_at`: `YYYY-MM-DD`
 - `inputs`: list of `{ type, ref }`
@@ -101,13 +111,25 @@ Optional keys:
 Required keys:
 
 - `id` (non-empty string)
-- `status`: `todo` | `done` | `skipped` | `blocked`
+- `status`: `todo` | `doing` | `done` | `skipped` | `blocked`
+- `description` (string) **or** `requirement` (alias)
 
 Optional keys:
 
+- `group` (string, v0.1.6)
 - `refs`: list of strings
 - `batch`: string
 - `evidence`: list or string (informational)
+
+### Alias Keys (v0.1.6)
+
+- `requirement` is accepted as an alias for `description`.
+- If both are present, validator SHOULD treat it as ambiguous.
+
+### Group Field (v0.1.6)
+
+- `group` is an optional, first-class metadata field for checklist items.
+- It is intended to align with Coverage Contract `required_groups`.
 
 ## Registry Block
 
@@ -123,13 +145,13 @@ Registry is used for coverage validation to ensure no items are missing.
 - Use one item per `flowmark-item` block
 - When registry is present, it should list every item ID
 
-## Minimal Example (v0.1.5)
+## Minimal Example (v0.1.6)
 
 ```markdown
 ```yaml flowmark
 id: fm-example
 title: Example
-version: "0.1.5"
+version: "0.1.6"
 contract:
   enumeration_target: "Example scope"
 inputs:
@@ -141,8 +163,8 @@ inputs:
 ```yaml flowmark-item
 id: ex-001
 status: todo
-refs:
-  - doc://spec
+description: "Example checklist item"
+group: example
 ```
 
 ```yaml flowmark-registry

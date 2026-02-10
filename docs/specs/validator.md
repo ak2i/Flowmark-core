@@ -1,6 +1,6 @@
 # FlowMark Validator Specification (Latest)
 
-Version: 0.1.5
+Version: 0.1.6
 
 This document defines parser and validator behavior for FlowMark tooling.
 
@@ -40,7 +40,8 @@ This document defines parser and validator behavior for FlowMark tooling.
 - Header has required keys: `id`, `title`, `version` (non-empty strings)
 - Item exists (at least 1)
 - Item IDs are globally unique
-- Item status is one of: `todo`, `done`, `skipped`, `blocked`
+- Item status is one of: `todo`, `doing`, `done`, `skipped`, `blocked`
+- Item has `description` (or `requirement` alias)
 - If registry exists, missing items are an error
 
 ## Validation Rules (SHOULD)
@@ -48,9 +49,15 @@ This document defines parser and validator behavior for FlowMark tooling.
 - Registry missing produces a warning
 - Unexpected items produce warning in lenient, error in strict
 - Duplicate section IDs produce a warning
-- Unknown keys produce a warning (excluding keys under `contract`)
+- Unknown keys produce a warning (excluding keys under `contract`, and extension keys `x_*` / `x-...`)
+- `group` is a supported item key (no unknown-key warning)
 
-## Error and Warning Codes (v0.1.5)
+## Alias Rules (v0.1.6)
+
+- `requirement` is accepted as an alias for `description`.
+- If both `description` and `requirement` exist, validator SHOULD error (`E_AMBIGUOUS_KEY`).
+
+## Error and Warning Codes (v0.1.6)
 
 Errors:
 
@@ -61,6 +68,7 @@ Errors:
 - `E_SCHEMA_INVALID`
 - `E_ITEM_ID_DUPLICATE`
 - `E_ITEM_STATUS_INVALID`
+- `E_AMBIGUOUS_KEY` (both description and requirement)
 - `E_COVERAGE_MISSING`
 - `E_REGISTRY_DUPLICATE`
 - `E_UNEXPECTED_ITEM` (strict)
@@ -71,6 +79,7 @@ Warnings:
 - `W_UNEXPECTED_ITEM` (lenient)
 - `W_SECTION_ID_DUPLICATE`
 - `W_UNKNOWN_KEYS`
+- `W_ALIAS_KEY` (requirement treated as description)
 - `W_REGISTRY_DUPLICATE` (lint)
 
 ## Strict vs Lenient

@@ -1,6 +1,6 @@
 # FlowMark-core
 
-Core CLI for FlowMark v0.1.5.
+Core CLI for FlowMark v0.1.6.
 
 ## Install (npm)
 
@@ -18,6 +18,7 @@ flowmark lint path/to/file.md
 flowmark describe ai
 flowmark describe ai-source
 flowmark describe ai --lang en --format md
+flowmark params normalize --lang en --format md
 ```
 
 ## Options
@@ -59,13 +60,13 @@ In `strict`, they become errors (`E_UNEXPECTED_ITEM`).
 
 ## Unknown Keys Warning
 
-Unknown keys are allowed but produce `W_UNKNOWN_KEYS` warnings.
+Unknown keys are allowed but produce `W_UNKNOWN_KEYS` warnings. Extension keys (`x_*`, `x-...`) are exempt.
 
 ## npm pack (Publish Check)
 
 ```bash
 npm pack
-tar -tf flowmark-core-cli-0.1.5.tgz
+tar -tf flowmark-core-cli-0.1.6.tgz
 ```
 
 Check that `bin/`, `src/`, `README.md`, and `LICENSE` are included.

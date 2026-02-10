@@ -52,6 +52,8 @@ Example:
 ```yaml flowmark-item
 id: ex-001
 status: todo
+description: "Example requirement"
+group: example
 ```
 ```
 
@@ -62,6 +64,6 @@ Before finishing:
 - Exactly one header
 - At least one item
 - All item IDs are unique
-- Status is one of: `todo`, `done`, `skipped`, `blocked`
+- Status is one of: `todo`, `doing`, `done`, `skipped`, `blocked`
+- Each item has `description` (or alias `requirement`)
 - Registry includes all item IDs
-

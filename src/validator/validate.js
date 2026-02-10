@@ -1,9 +1,9 @@
-const ALLOWED_STATUS = new Set(['todo', 'done', 'skipped', 'blocked']);
+const ALLOWED_STATUS = new Set(['todo', 'doing', 'done', 'skipped', 'blocked']);
 
 const ALLOWED_KEYS = {
-  header: new Set(['id', 'title', 'version', 'status', 'created_at', 'inputs', 'contract']),
+  header: new Set(['id', 'title', 'version', 'doc_type', 'status', 'created_at', 'inputs', 'contract']),
   section: new Set(['id', 'scope', 'notes']),
-  item: new Set(['id', 'status', 'refs', 'batch', 'evidence']),
+  item: new Set(['id', 'status', 'description', 'requirement', 'group', 'refs', 'batch', 'evidence', 'if', 'then', 'else']),
   registry: new Set(['expected_items'])
 };
 
@@ -25,7 +25,11 @@ function addUnknownKeyWarnings(kind, entry, warnings) {
   }
   const allowed = ALLOWED_KEYS[kind];
   if (!allowed) return;
-  const unknown = Object.keys(entry.data).filter((k) => !allowed.has(k));
+  const unknown = Object.keys(entry.data).filter((k) => {
+    if (allowed.has(k)) return false;
+    if (k.startsWith('x_') || k.startsWith('x-')) return false;
+    return true;
+  });
   if (unknown.length === 0) return;
   warnings.push({
     code: 'W_UNKNOWN_KEYS',
@@ -91,6 +95,8 @@ function validateDocument(parsed, { mode }) {
     }
     const id = data.id;
     const status = data.status;
+    const hasDescription = isNonEmptyString(data.description);
+    const hasRequirement = isNonEmptyString(data.requirement);
 
     if (isNonEmptyString(id)) {
       if (itemIds.has(id)) {
@@ -112,6 +118,22 @@ function validateDocument(parsed, { mode }) {
       errors.push({
         code: 'E_ITEM_STATUS_INVALID',
         message: `Invalid item status: ${status}`,
+        location: item.location || null
+      });
+    }
+
+    if (!hasDescription && !hasRequirement) {
+      addSchemaError(errors, 'Item description (or requirement alias) is required.', item.location);
+    } else if (hasDescription && hasRequirement) {
+      errors.push({
+        code: 'E_AMBIGUOUS_KEY',
+        message: 'Item has both description and requirement.',
+        location: item.location || null
+      });
+    } else if (hasRequirement && !hasDescription) {
+      warnings.push({
+        code: 'W_ALIAS_KEY',
+        message: 'Alias key requirement treated as description.',
         location: item.location || null
       });
     }
@@ -229,6 +251,17 @@ function lintDocument(parsed, { mode }) {
     const data = item.data;
     if (data && typeof data === 'object' && !Array.isArray(data) && isNonEmptyString(data.id)) {
       itemIds.add(data.id);
+    }
+    if (data && typeof data === 'object' && !Array.isArray(data)) {
+      const hasDescription = isNonEmptyString(data.description);
+      const hasRequirement = isNonEmptyString(data.requirement);
+      if (hasRequirement && !hasDescription) {
+        warnings.push({
+          code: 'W_ALIAS_KEY',
+          message: 'Alias key requirement treated as description.',
+          location: item.location || null
+        });
+      }
     }
     addUnknownKeyWarnings('item', item, warnings);
   }
